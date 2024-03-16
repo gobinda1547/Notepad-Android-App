@@ -37,6 +37,12 @@ fun NoteListScreen(
         navController.navigate("$route?$param")
     }
 
+    fun openSingleNoteScreen(noteId: Long) {
+        val route = AppScreen.ShowNoteScreen.router
+        val param = "noteId=$noteId"
+        navController.navigate("$route?$param")
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -66,7 +72,7 @@ fun NoteListScreen(
                     }
 
                     else -> NoteListNonEmptyValue(noteItems = validItems) {
-                        openAddOrEditScreen(it)
+                        openSingleNoteScreen(it)
                     }
                 }
             }

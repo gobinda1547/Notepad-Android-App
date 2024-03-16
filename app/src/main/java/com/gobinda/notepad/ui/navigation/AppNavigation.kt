@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.gobinda.notepad.ui.screens.addEditNote.AddEditNoteScreen
 import com.gobinda.notepad.ui.screens.noteList.NoteListScreen
+import com.gobinda.notepad.ui.screens.showNote.ShowNoteScreen
 
 private const val ANIMATION_OFFSET = 500
 private const val ANIMATION_DURATION = 500
@@ -64,5 +65,34 @@ fun AppNavigation() {
                 ) + fadeOut(animationSpec = tween(durationMillis = ANIMATION_DURATION))
             }
         ) { AddEditNoteScreen(navController = navController) }
+
+        composable(
+            route = AppScreen.ShowNoteScreen.router + "?noteId={noteId}",
+            arguments = listOf(navArgument("noteId") { type = NavType.LongType }),
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { ANIMATION_OFFSET },
+                    animationSpec = tween(durationMillis = ANIMATION_DURATION)
+                ) + fadeIn(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+            },
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { -ANIMATION_OFFSET },
+                    animationSpec = tween(durationMillis = ANIMATION_DURATION)
+                ) + fadeOut(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+            },
+            popEnterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { -ANIMATION_OFFSET },
+                    animationSpec = tween(durationMillis = ANIMATION_DURATION)
+                ) + fadeIn(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { ANIMATION_OFFSET },
+                    animationSpec = tween(durationMillis = ANIMATION_DURATION)
+                ) + fadeOut(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+            }
+        ) { ShowNoteScreen(navController = navController) }
     }
 }
