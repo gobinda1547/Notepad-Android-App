@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gobinda.notepad.domain.model.NoteAsListItem
+import com.gobinda.notepad.ui.navigation.AppScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,6 +30,12 @@ fun NoteListScreen(
     viewModel: NoteListViewModel = hiltViewModel()
 ) {
     val noteItems: State<List<NoteAsListItem>?> = viewModel.noteList.collectAsState()
+
+    fun openAddOrEditScreen(noteId: Long) {
+        val route = AppScreen.AddOrEditNoteScreen.router
+        val param = "noteId=$noteId"
+        navController.navigate("$route?$param")
+    }
 
     Scaffold(
         topBar = {
@@ -39,7 +46,7 @@ fun NoteListScreen(
                 ),
                 title = { Text(text = "Notepad") },
                 actions = {
-                    IconButton(onClick = { /* todo - have to implement */ }) {
+                    IconButton(onClick = { openAddOrEditScreen(-1) }) {
                         Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
                     }
                 }
@@ -55,13 +62,11 @@ fun NoteListScreen(
             noteItems.value?.let { validItems ->
                 when (validItems.isEmpty()) {
                     true -> NoteListEmptyView {
-                        // todo - since empty view clicked so we have to take
-                        // todo - the user to add new note screen
+                        openAddOrEditScreen(-1)
                     }
 
                     else -> NoteListNonEmptyValue(noteItems = validItems) {
-                        // todo - since non empty view clicked so we have to take
-                        // todo - the user to single note screen by using the id
+                        openAddOrEditScreen(it)
                     }
                 }
             }

@@ -9,9 +9,12 @@ import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.gobinda.notepad.ui.screens.addEditNote.AddEditNoteScreen
 import com.gobinda.notepad.ui.screens.noteList.NoteListScreen
 
 private const val ANIMATION_OFFSET = 500
@@ -44,5 +47,22 @@ fun AppNavigation() {
         ) {
             NoteListScreen(navController = navController)
         }
+
+        composable(
+            route = AppScreen.AddOrEditNoteScreen.router + "?noteId={noteId}",
+            arguments = listOf(navArgument("noteId") { type = NavType.LongType }),
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { ANIMATION_OFFSET },
+                    animationSpec = tween(durationMillis = ANIMATION_DURATION)
+                ) + fadeIn(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { ANIMATION_OFFSET },
+                    animationSpec = tween(durationMillis = ANIMATION_DURATION)
+                ) + fadeOut(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+            }
+        ) { AddEditNoteScreen(navController = navController) }
     }
 }
