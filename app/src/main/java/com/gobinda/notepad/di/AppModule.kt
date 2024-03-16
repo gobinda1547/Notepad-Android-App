@@ -6,6 +6,7 @@ import com.gobinda.notepad.data.repository.NoteRepository
 import com.gobinda.notepad.data.repository.NoteRepositoryImpl
 import com.gobinda.notepad.data.source.NoteDao
 import com.gobinda.notepad.data.source.NoteDatabase
+import com.gobinda.notepad.domain.usecase.GetNotesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,5 +38,10 @@ class AppModule {
     @Singleton
     fun provideNoteRepository(noteDao: NoteDao): NoteRepository {
         return NoteRepositoryImpl(noteDao)
+    }
+
+    @Provides
+    fun provideGetNoteListUseCase(repository: NoteRepository): GetNotesUseCase {
+        return GetNotesUseCase(repository)
     }
 }
