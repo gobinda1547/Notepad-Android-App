@@ -2,6 +2,7 @@ package com.gobinda.notepad.common
 
 import com.gobinda.notepad.data.model.NoteModel
 import com.gobinda.notepad.domain.model.Note
+import com.gobinda.notepad.domain.model.NoteAsListItem
 
 /**
  * This is an extension function written on behave of [Note] class. And
@@ -17,4 +18,16 @@ fun Note.toNoteModel(): NoteModel {
  */
 fun NoteModel.toNote(): Note {
     return Note(id, title, content, lastEditTime)
+}
+
+/**
+ * This extension function is written on behave of [NoteModel] class. This
+ * function will convert the [NoteModel] object into an object of [NoteAsListItem]
+ * class.
+ */
+fun NoteModel.toNoteAsListItem(): NoteAsListItem {
+    return NoteAsListItem(
+        title = title,
+        id = id
+    )
 }
