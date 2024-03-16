@@ -7,6 +7,7 @@ import com.gobinda.notepad.data.repository.NoteRepositoryImpl
 import com.gobinda.notepad.data.source.NoteDao
 import com.gobinda.notepad.data.source.NoteDatabase
 import com.gobinda.notepad.domain.usecase.AddNoteUseCase
+import com.gobinda.notepad.domain.usecase.DeleteNoteUseCase
 import com.gobinda.notepad.domain.usecase.GetNotesUseCase
 import com.gobinda.notepad.domain.usecase.GetSingleNoteUseCase
 import dagger.Module
@@ -55,5 +56,10 @@ class AppModule {
     @Provides
     fun provideAddNoteUseCase(repository: NoteRepository): AddNoteUseCase {
         return AddNoteUseCase(repository)
+    }
+
+    @Provides
+    fun providesDeleteNoteUseCase(repository: NoteRepository): DeleteNoteUseCase {
+        return DeleteNoteUseCase(repository)
     }
 }

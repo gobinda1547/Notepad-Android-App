@@ -3,4 +3,8 @@
     <string name="error_empty_title">Invalid title</string>
     <string name="error_empty_content">Invalid content</string>
     <string name="error_unknown_exception">Unknown exception</string>
+    <string name="delete_dialog_title">Delete note?</string>
+    <string name="delete_dialog_content">Are you sure that you want to delete this note. Once done this can not be undo. You will completely lost this note forever. Please choose your answer carefully.</string>
+    <string name="delete_dialog_positive_button_text">YES</string>
+    <string name="delete_dialog_negative_button_text">No</string>
 </resources>
