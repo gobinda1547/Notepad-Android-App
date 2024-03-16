@@ -50,7 +50,19 @@ fun AppNavigation() {
 
         composable(
             route = AppScreen.AddOrEditNoteScreen.router + "?noteId={noteId}",
-            arguments = listOf(navArgument("noteId") { type = NavType.LongType })
+            arguments = listOf(navArgument("noteId") { type = NavType.LongType }),
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { ANIMATION_OFFSET },
+                    animationSpec = tween(durationMillis = ANIMATION_DURATION)
+                ) + fadeIn(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { ANIMATION_OFFSET },
+                    animationSpec = tween(durationMillis = ANIMATION_DURATION)
+                ) + fadeOut(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+            }
         ) { AddEditNoteScreen(navController = navController) }
     }
 }
