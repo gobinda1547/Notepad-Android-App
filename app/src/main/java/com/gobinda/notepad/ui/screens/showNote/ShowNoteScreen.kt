@@ -93,7 +93,8 @@ fun ShowNoteScreen(
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
-                    titleContentColor = MaterialTheme.colorScheme.onBackground
+                    titleContentColor = MaterialTheme.colorScheme.onBackground,
+                    actionIconContentColor = MaterialTheme.colorScheme.onBackground
                 ),
                 title = { },
                 actions = {
@@ -125,7 +126,7 @@ fun ShowNoteScreen(
                         .fillMaxWidth()
                         .padding(16.dp),
                     text = it.title,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontFamily = FontFamily.SansSerif,
                     fontSize = 24.sp,
                     fontStyle = FontStyle.Normal,
@@ -137,7 +138,7 @@ fun ShowNoteScreen(
                         .fillMaxWidth()
                         .padding(16.dp),
                     text = it.content,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontFamily = FontFamily.SansSerif,
                     fontSize = 20.sp,
                     fontStyle = FontStyle.Normal,
