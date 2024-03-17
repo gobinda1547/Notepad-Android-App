@@ -63,7 +63,8 @@ fun AddEditNoteScreen(
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
-                    titleContentColor = MaterialTheme.colorScheme.onBackground
+                    titleContentColor = MaterialTheme.colorScheme.onBackground,
+                    actionIconContentColor = MaterialTheme.colorScheme.onBackground
                 ),
                 title = {
                     isEditingNoteState.value?.let { isEdit ->
