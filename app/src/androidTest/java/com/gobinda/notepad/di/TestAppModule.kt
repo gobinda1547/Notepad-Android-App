@@ -12,14 +12,21 @@ import com.gobinda.notepad.domain.usecase.GetNotesUseCase
 import com.gobinda.notepad.domain.usecase.GetSingleNoteUseCase
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
 import javax.inject.Singleton
 
+/**
+ * This is the test app module declaration, where we will basically replace all the
+ * providers for testing. Like In a real app we should use persistent storage for
+ * room database. But when testing we don't need persistent storage - we can confirm
+ * our API by using InMemoryDatabase of room library. Plus we may provide some custom
+ * implementation of the repository class, etc.
+ */
 @Module
-@InstallIn(SingletonComponent::class)
-class AppModule {
+@TestInstallIn(components = [SingletonComponent::class], replaces = [AppModule::class])
+class TestAppModule {
 
     @Provides
     @Singleton
