@@ -99,7 +99,7 @@ fun ShowNoteScreen(
                 title = { },
                 actions = {
                     IconButton(onClick = { showDeleteDialog.value = true }) {
-                        Icon(imageVector = Icons.Default.Delete, contentDescription = "Edit")
+                        Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
                     }
                     IconButton(onClick = { openAddOrEditScreen(currentNote.value?.id) }) {
                         Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit")

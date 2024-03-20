@@ -73,7 +73,7 @@ fun AddEditNoteScreen(
                 },
                 actions = {
                     IconButton(onClick = { viewModel.handleEvent(AddEditUiEvent.SaveNote) }) {
-                        Icon(imageVector = Icons.Default.Done, contentDescription = "Add")
+                        Icon(imageVector = Icons.Default.Done, contentDescription = "Done")
                     }
                 },
                 navigationIcon = {
