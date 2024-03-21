@@ -18,10 +18,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gobinda.notepad.domain.model.NoteAsListItem
 import com.gobinda.notepad.ui.navigation.AppScreen
+import com.gobinda.notepad.ui.screens.common.TestTag
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,6 +46,7 @@ fun NoteListScreen(
     }
 
     Scaffold(
+        modifier = Modifier.testTag(TestTag.NoteListScreenView),
         topBar = {
             TopAppBar(
                 colors = topAppBarColors(
@@ -53,7 +56,10 @@ fun NoteListScreen(
                 ),
                 title = { Text(text = "Notepad") },
                 actions = {
-                    IconButton(onClick = { openAddOrEditScreen(-1) }) {
+                    IconButton(
+                        modifier = Modifier.testTag(TestTag.NoteListScreenAddIconBtn),
+                        onClick = { openAddOrEditScreen(-1) }
+                    ) {
                         Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
                     }
                 }

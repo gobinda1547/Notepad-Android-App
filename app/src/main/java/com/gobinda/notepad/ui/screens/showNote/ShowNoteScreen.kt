@@ -27,6 +27,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +37,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gobinda.notepad.ui.navigation.AppScreen
 import com.gobinda.notepad.ui.screens.common.MenuDivider
+import com.gobinda.notepad.ui.screens.common.TestTag
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -89,6 +91,7 @@ fun ShowNoteScreen(
     }
 
     Scaffold(
+        modifier = Modifier.testTag(TestTag.ShowNoteScreenView),
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -98,15 +101,24 @@ fun ShowNoteScreen(
                 ),
                 title = { },
                 actions = {
-                    IconButton(onClick = { showDeleteDialog.value = true }) {
+                    IconButton(
+                        modifier = Modifier.testTag(TestTag.ShowNoteScreenDeleteIconBtn),
+                        onClick = { showDeleteDialog.value = true }
+                    ) {
                         Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete")
                     }
-                    IconButton(onClick = { openAddOrEditScreen(currentNote.value?.id) }) {
+                    IconButton(
+                        modifier = Modifier.testTag(TestTag.ShowNoteScreenEditIconBtn),
+                        onClick = { openAddOrEditScreen(currentNote.value?.id) }
+                    ) {
                         Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit")
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
+                    IconButton(
+                        modifier = Modifier.testTag(TestTag.ShowNoteScreenBackBtn),
+                        onClick = { navController.navigateUp() }
+                    ) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
