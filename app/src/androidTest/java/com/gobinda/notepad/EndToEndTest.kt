@@ -1,9 +1,11 @@
 package com.gobinda.notepad
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onChildAt
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
@@ -38,8 +40,6 @@ class EndToEndTest {
         content = "note content 3",
         lastEditTime = 103L
     )
-
-    private val testNoteList = listOf(testNote1, testNote2, testNote3)
 
     @get:Rule(order = 1)
     val hiltRule = HiltAndroidRule(this)
@@ -123,5 +123,91 @@ class EndToEndTest {
         composeRule.onNode(deleteDialogYesBtn).performClick()
         composeRule.onNode(noteListScreenView).assertIsDisplayed()
         composeRule.onNode(hasText(testNote2.title)).assertDoesNotExist()
+    }
+
+    @Test
+    fun addThreeNote_verifyTheirOrderInList_editSecondOne_confirmTheirOrderInList() {
+        // all the screen elements declaration
+        val noteListScreenView = hasTestTag(TestTag.NoteListScreenView)
+        val addEditNoteScreenView = hasTestTag(TestTag.AddEditNoteScreenView)
+        val noteListScreenAddIconBtn = hasTestTag(TestTag.NoteListScreenAddIconBtn)
+        val noteListScreenLazyColumn = hasTestTag(TestTag.NoteListNonEmptyView_LazyColumn)
+        val addEditScreenTitleInputView = hasTestTag(TestTag.TitleInputView_InputField)
+        val addEditScreenContentInputView = hasTestTag(TestTag.ContentInputView_InputField)
+        val addEditScreenDoneIconBtn = hasTestTag(TestTag.AddEditScreenDoneIconBtn)
+        val showNoteScreenEditIconBtn = hasTestTag(TestTag.ShowNoteScreenEditIconBtn)
+        val showNoteScreenBackBtn = hasTestTag(TestTag.ShowNoteScreenBackBtn)
+
+        // verifying that we are in NoteListScreen then click add button
+        composeRule.onNode(noteListScreenView).assertIsDisplayed()
+        composeRule.onNode(noteListScreenAddIconBtn).performClick()
+
+        // verify that we are in add note screen then save a new note
+        composeRule.onNode(addEditNoteScreenView).assertIsDisplayed()
+        composeRule.onNode(addEditScreenTitleInputView).performTextInput(testNote1.title)
+        composeRule.onNode(addEditScreenContentInputView).performTextInput(testNote1.content)
+        composeRule.onNode(addEditScreenDoneIconBtn).performClick()
+
+        // verify the new note gets added then click add button again to add a new one
+        composeRule.onNode(noteListScreenView).assertIsDisplayed()
+        composeRule.onNode(hasText(testNote1.title)).assertExists()
+        composeRule.onNode(noteListScreenAddIconBtn).performClick()
+
+        // verify that we are in add note screen then save a new note
+        composeRule.onNode(addEditNoteScreenView).assertIsDisplayed()
+        composeRule.onNode(addEditScreenTitleInputView).performTextInput(testNote2.title)
+        composeRule.onNode(addEditScreenContentInputView).performTextInput(testNote2.content)
+        composeRule.onNode(addEditScreenDoneIconBtn).performClick()
+
+        // verify the list have 2 notes and then click add button again to add a new one
+        composeRule.onNode(noteListScreenView).assertIsDisplayed()
+        composeRule.onNode(hasText(testNote1.title)).assertExists()
+        composeRule.onNode(hasText(testNote2.title)).assertExists()
+        composeRule.onNode(noteListScreenAddIconBtn).performClick()
+
+        // verify that we are in add note screen then save a new note
+        composeRule.onNode(addEditNoteScreenView).assertIsDisplayed()
+        composeRule.onNode(addEditScreenTitleInputView).performTextInput(testNote3.title)
+        composeRule.onNode(addEditScreenContentInputView).performTextInput(testNote3.content)
+        composeRule.onNode(addEditScreenDoneIconBtn).performClick()
+
+        // verify the list have 3 notes and confirm their order
+        composeRule.onNode(noteListScreenView).assertIsDisplayed()
+        composeRule.onNode(hasText(testNote1.title)).assertExists()
+        composeRule.onNode(hasText(testNote2.title)).assertExists()
+        composeRule.onNode(hasText(testNote3.title)).assertExists()
+
+        // verifying the order of the notes in the list
+        // child positions are not contiguous since we have menu divider as child
+        val lazyColumn = composeRule.onNode(noteListScreenLazyColumn)
+        lazyColumn.onChildAt(0).assertTextContains(testNote3.title)
+        lazyColumn.onChildAt(2).assertTextContains(testNote2.title)
+        lazyColumn.onChildAt(4).assertTextContains(testNote1.title)
+
+        // edit the second item by opening add edit note screen
+        lazyColumn.onChildAt(2).performClick()
+        composeRule.onNode(showNoteScreenBackBtn).assertIsDisplayed()
+        composeRule.onNode(showNoteScreenEditIconBtn).performClick()
+        composeRule.onNode(addEditNoteScreenView).assertIsDisplayed()
+
+        // perform the edit operation and save back then go back to note list screen
+        composeRule.onNode(addEditScreenTitleInputView).performTextClearance()
+        composeRule.onNode(addEditScreenContentInputView).performTextClearance()
+        composeRule.onNode(addEditScreenTitleInputView).performTextInput(testNote2.title)
+        composeRule.onNode(addEditScreenContentInputView).performTextInput(testNote2.content)
+        composeRule.onNode(addEditScreenDoneIconBtn).performClick()
+        composeRule.onNode(showNoteScreenBackBtn).performClick()
+
+        // verify the list have 3 notes and confirm their order
+        composeRule.onNode(noteListScreenView).assertIsDisplayed()
+        composeRule.onNode(hasText(testNote1.title)).assertExists()
+        composeRule.onNode(hasText(testNote2.title)).assertExists()
+        composeRule.onNode(hasText(testNote3.title)).assertExists()
+
+        // verifying the order of the notes in the list
+        // child positions are not contiguous since we have menu divider as child
+        lazyColumn.onChildAt(0).assertTextContains(testNote2.title)
+        lazyColumn.onChildAt(2).assertTextContains(testNote3.title)
+        lazyColumn.onChildAt(4).assertTextContains(testNote1.title)
     }
 }

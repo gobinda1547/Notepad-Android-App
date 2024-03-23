@@ -7,6 +7,7 @@ object TestTag {
     const val TitleInputView_HintText = "TitleInputView_hint_text"
     const val MenuDivider_Main = "MenuDivider_main_inner_divider"
     const val NoteListEmptyView_Main_Text = "NoteListEmptyView_main_text"
+    const val NoteListNonEmptyView_LazyColumn = "NoteListNonEmptyView_LazyColumn"
     const val NoteListScreenView = "NoteListScreenView"
     const val ShowNoteScreenView = "ShowNoteScreenView"
     const val AddEditNoteScreenView = "AddEditNoteScreenView"
