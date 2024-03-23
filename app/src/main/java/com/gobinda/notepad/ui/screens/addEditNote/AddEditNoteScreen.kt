@@ -24,9 +24,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gobinda.notepad.ui.screens.common.MenuDivider
+import com.gobinda.notepad.ui.screens.common.TestTag
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,6 +61,7 @@ fun AddEditNoteScreen(
     }
 
     Scaffold(
+        modifier = Modifier.testTag(TestTag.AddEditNoteScreenView),
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -68,16 +71,25 @@ fun AddEditNoteScreen(
                 ),
                 title = {
                     isEditingNoteState.value?.let { isEdit ->
-                        Text(text = if (isEdit) "Edit" else "Add")
+                        Text(
+                            modifier = Modifier.testTag(TestTag.AddEditScreeTitleTextView),
+                            text = if (isEdit) "Edit" else "Add"
+                        )
                     }
                 },
                 actions = {
-                    IconButton(onClick = { viewModel.handleEvent(AddEditUiEvent.SaveNote) }) {
+                    IconButton(
+                        modifier = Modifier.testTag(TestTag.AddEditScreenDoneIconBtn),
+                        onClick = { viewModel.handleEvent(AddEditUiEvent.SaveNote) }
+                    ) {
                         Icon(imageVector = Icons.Default.Done, contentDescription = "Done")
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
+                    IconButton(
+                        modifier = Modifier.testTag(TestTag.AddEditScreenBackBtn),
+                        onClick = { navController.navigateUp() }
+                    ) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
