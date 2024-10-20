@@ -18,7 +18,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gobinda.notepad.domain.model.NoteAsListItem
-import com.gobinda.notepad.ui.common.ContentHolderForTitledScreen
+import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
 import com.gobinda.notepad.ui.navigation.AppScreen
 import com.gobinda.notepad.ui.screens.common.TestTag
 

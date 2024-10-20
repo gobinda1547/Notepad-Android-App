@@ -1,4 +1,4 @@
-package com.gobinda.notepad.ui.common
+package com.gobinda.notepad.ui.screens.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -31,7 +31,7 @@ fun ContentHolderForTitledScreen(
             .padding(paddingValues)
             .background(color = backgroundColor)
     ) {
-        GradientHorizontalDivider(
+        MenuDivider(
             height = 2,
             paddingStart = 0,
             paddingEnd = 0,

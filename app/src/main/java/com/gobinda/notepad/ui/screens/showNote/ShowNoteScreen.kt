@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.gobinda.notepad.ui.common.ContentHolderForTitledScreen
+import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
 import com.gobinda.notepad.ui.navigation.AppScreen
 import com.gobinda.notepad.ui.screens.common.MenuDivider
 import com.gobinda.notepad.ui.screens.common.TestTag
