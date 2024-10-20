@@ -23,11 +23,11 @@ fun NoteModel.toNote(): Note {
 /**
  * This extension function is written on behave of [NoteModel] class. This
  * function will convert the [NoteModel] object into an object of [NoteAsListItem]
- * class.
+ * class. As title we will select the first non empty line.
  */
 fun NoteModel.toNoteAsListItem(): NoteAsListItem {
     return NoteAsListItem(
-        title = title,
+        title = title.split("\n").firstOrNull { it.isNotEmpty() } ?: "",
         id = id
     )
 }

@@ -1,11 +1,7 @@
 package com.gobinda.notepad.ui.screens.addEditNote
 
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -27,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
 import com.gobinda.notepad.ui.screens.common.MenuDivider
 import com.gobinda.notepad.ui.screens.common.TestTag
 
@@ -96,20 +93,15 @@ fun AddEditNoteScreen(
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.surface)
-                .fillMaxSize()
-                .imePadding()
-                .verticalScroll(state = verticalScrollState)
-                .padding(innerPadding),
-        ) {
-            TitleInputView(text = titleTextState.value) {
-                viewModel.handleEvent(AddEditUiEvent.UpdateTitle(it))
-            }
-            MenuDivider(paddingStart = 16, paddingEnd = 16)
-            ContentInputView(text = contentTextState.value) {
-                viewModel.handleEvent(AddEditUiEvent.UpdateContent(it))
+        ContentHolderForTitledScreen(paddingValues = innerPadding) {
+            Column(modifier = Modifier.verticalScroll(verticalScrollState)) {
+                TitleInputView(text = titleTextState.value) {
+                    viewModel.handleEvent(AddEditUiEvent.UpdateTitle(it))
+                }
+                MenuDivider(paddingStart = 16, paddingEnd = 16)
+                ContentInputView(text = contentTextState.value) {
+                    viewModel.handleEvent(AddEditUiEvent.UpdateContent(it))
+                }
             }
         }
     }

@@ -1,8 +1,5 @@
 package com.gobinda.notepad.ui.screens.noteList
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -10,7 +7,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
@@ -22,6 +18,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gobinda.notepad.domain.model.NoteAsListItem
+import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
 import com.gobinda.notepad.ui.navigation.AppScreen
 import com.gobinda.notepad.ui.screens.common.TestTag
 
@@ -66,12 +63,7 @@ fun NoteListScreen(
             )
         }
     ) { innerPadding ->
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(innerPadding)
-        ) {
+        ContentHolderForTitledScreen(paddingValues = innerPadding) {
             noteItems.value?.let { validItems ->
                 when (validItems.isEmpty()) {
                     true -> NoteListEmptyView {
