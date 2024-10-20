@@ -1,9 +1,7 @@
 package com.gobinda.notepad.ui.screens.showNote
 
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -35,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.gobinda.notepad.ui.common.ContentHolderForTitledScreen
 import com.gobinda.notepad.ui.navigation.AppScreen
 import com.gobinda.notepad.ui.screens.common.MenuDivider
 import com.gobinda.notepad.ui.screens.common.TestTag
@@ -125,37 +124,33 @@ fun ShowNoteScreen(
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.surface)
-                .fillMaxSize()
-                .verticalScroll(state = verticalScrollState)
-                .padding(innerPadding),
-        ) {
+        ContentHolderForTitledScreen(paddingValues = innerPadding) {
             currentNote.value?.let {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    text = it.title,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontFamily = FontFamily.SansSerif,
-                    fontSize = 24.sp,
-                    fontStyle = FontStyle.Normal,
-                    fontWeight = FontWeight.Light,
-                )
-                MenuDivider(paddingStart = 16, paddingEnd = 16)
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    text = it.content,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontFamily = FontFamily.SansSerif,
-                    fontSize = 20.sp,
-                    fontStyle = FontStyle.Normal,
-                    fontWeight = FontWeight.Light,
-                )
+                Column(modifier = Modifier.verticalScroll(verticalScrollState)) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        text = it.title,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFamily = FontFamily.SansSerif,
+                        fontSize = 24.sp,
+                        fontStyle = FontStyle.Normal,
+                        fontWeight = FontWeight.Light,
+                    )
+                    MenuDivider(paddingStart = 16, paddingEnd = 16)
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        text = it.content,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFamily = FontFamily.SansSerif,
+                        fontSize = 20.sp,
+                        fontStyle = FontStyle.Normal,
+                        fontWeight = FontWeight.Light,
+                    )
+                }
             }
         }
     }
