@@ -18,8 +18,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.gobinda.notepad.R
 import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
 import com.gobinda.notepad.ui.screens.common.TestTag
 
@@ -64,7 +66,10 @@ fun AddEditNoteScreen(
                     isEditingNoteState.value?.let { isEdit ->
                         Text(
                             modifier = Modifier.testTag(TestTag.AddEditScreeTitleTextView),
-                            text = if (isEdit) "Edit" else "Add"
+                            text = when (isEdit) {
+                                true -> stringResource(R.string.text_edit)
+                                else -> stringResource(R.string.text_new)
+                            }
                         )
                     }
                 },
