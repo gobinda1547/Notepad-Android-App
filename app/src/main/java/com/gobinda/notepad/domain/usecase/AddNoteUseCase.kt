@@ -23,9 +23,6 @@ class AddNoteUseCase(private val repository: NoteRepository) {
      */
     @Throws(AddNoteException::class)
     suspend fun execute(note: Note) {
-        if (note.title.trim().isEmpty()) {
-            throw AddNoteException(R.string.error_empty_title)
-        }
         if (note.content.trim().isEmpty()) {
             throw AddNoteException(R.string.error_empty_content)
         }
