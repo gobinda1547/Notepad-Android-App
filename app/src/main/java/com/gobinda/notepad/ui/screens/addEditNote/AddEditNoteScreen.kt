@@ -2,6 +2,7 @@ package com.gobinda.notepad.ui.screens.addEditNote
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -24,7 +25,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
-import com.gobinda.notepad.ui.screens.common.MenuDivider
 import com.gobinda.notepad.ui.screens.common.TestTag
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,7 +35,6 @@ fun AddEditNoteScreen(
 ) {
 
     val context = LocalContext.current
-    val titleTextState = viewModel.titleText.collectAsState()
     val contentTextState = viewModel.contentText.collectAsState()
     val isEditingNoteState = viewModel.isEditingNote.collectAsState()
     val verticalScrollState = rememberScrollState()
@@ -94,11 +93,11 @@ fun AddEditNoteScreen(
         }
     ) { innerPadding ->
         ContentHolderForTitledScreen(paddingValues = innerPadding) {
-            Column(modifier = Modifier.verticalScroll(verticalScrollState)) {
-                TitleInputView(text = titleTextState.value) {
-                    viewModel.handleEvent(AddEditUiEvent.UpdateTitle(it))
-                }
-                MenuDivider(paddingStart = 16, paddingEnd = 16)
+            Column(
+                modifier = Modifier
+                    .verticalScroll(verticalScrollState)
+                    .imePadding()
+            ) {
                 ContentInputView(text = contentTextState.value) {
                     viewModel.handleEvent(AddEditUiEvent.UpdateContent(it))
                 }

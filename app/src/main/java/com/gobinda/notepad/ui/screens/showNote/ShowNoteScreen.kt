@@ -33,9 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
 import com.gobinda.notepad.ui.navigation.AppScreen
-import com.gobinda.notepad.ui.screens.common.MenuDivider
+import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
 import com.gobinda.notepad.ui.screens.common.TestTag
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -127,18 +126,6 @@ fun ShowNoteScreen(
         ContentHolderForTitledScreen(paddingValues = innerPadding) {
             currentNote.value?.let {
                 Column(modifier = Modifier.verticalScroll(verticalScrollState)) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        text = it.title,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        fontFamily = FontFamily.SansSerif,
-                        fontSize = 24.sp,
-                        fontStyle = FontStyle.Normal,
-                        fontWeight = FontWeight.Light,
-                    )
-                    MenuDivider(paddingStart = 16, paddingEnd = 16)
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
