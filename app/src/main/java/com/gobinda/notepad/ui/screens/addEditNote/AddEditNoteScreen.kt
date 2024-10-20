@@ -1,10 +1,6 @@
 package com.gobinda.notepad.ui.screens.addEditNote
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Done
@@ -37,7 +33,6 @@ fun AddEditNoteScreen(
     val context = LocalContext.current
     val contentTextState = viewModel.contentText.collectAsState()
     val isEditingNoteState = viewModel.isEditingNote.collectAsState()
-    val verticalScrollState = rememberScrollState()
 
     LaunchedEffect(Unit) {
         viewModel.toastMessage.collect {
@@ -93,14 +88,8 @@ fun AddEditNoteScreen(
         }
     ) { innerPadding ->
         ContentHolderForTitledScreen(paddingValues = innerPadding) {
-            Column(
-                modifier = Modifier
-                    .verticalScroll(verticalScrollState)
-                    .imePadding()
-            ) {
-                ContentInputView(text = contentTextState.value) {
-                    viewModel.handleEvent(AddEditUiEvent.UpdateContent(it))
-                }
+            ContentInputView(text = contentTextState.value) {
+                viewModel.handleEvent(AddEditUiEvent.UpdateContent(it))
             }
         }
     }
