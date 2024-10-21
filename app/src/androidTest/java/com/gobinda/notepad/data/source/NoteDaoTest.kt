@@ -42,7 +42,6 @@ class NoteDaoTest {
         val newNoteId = noteDao.addOrUpdateNote(
             NoteModel(
                 id = testNoteId,
-                title = "test title",
                 content = "test content",
                 lastEditTime = 100L
             )
@@ -52,7 +51,6 @@ class NoteDaoTest {
         val noteList2 = noteDao.getAllNotes().first()
         TestCase.assertEquals(1, noteList2.size)
         TestCase.assertEquals(testNoteId, noteList2[0].id)
-        TestCase.assertEquals("test title", noteList2[0].title)
         TestCase.assertEquals("test content", noteList2[0].content)
     }
 
@@ -70,7 +68,6 @@ class NoteDaoTest {
         val newNoteId = noteDao.addOrUpdateNote(
             NoteModel(
                 id = testNoteId,
-                title = "test title",
                 content = "test content",
                 lastEditTime = 100L
             )
@@ -79,7 +76,6 @@ class NoteDaoTest {
         TestCase.assertEquals(testNoteId, newNoteId)
         val testNote2 = noteDao.getSingleNote(testNoteId).first()
         TestCase.assertEquals(testNoteId, testNote2?.id)
-        TestCase.assertEquals("test title", testNote2?.title)
         TestCase.assertEquals("test content", testNote2?.content)
     }
 
@@ -94,7 +90,6 @@ class NoteDaoTest {
         val newNoteId = noteDao.addOrUpdateNote(
             NoteModel(
                 id = testNoteId,
-                title = "test title",
                 content = "test content",
                 lastEditTime = 100L
             )
@@ -117,7 +112,6 @@ class NoteDaoTest {
         val newNoteId1 = noteDao.addOrUpdateNote(
             NoteModel(
                 id = testNoteId,
-                title = "test title",
                 content = "test content",
                 lastEditTime = 100L
             )
@@ -128,7 +122,6 @@ class NoteDaoTest {
         val newNoteId2 = noteDao.addOrUpdateNote(
             NoteModel(
                 id = testNoteId,
-                title = "test title",
                 content = "test content",
                 lastEditTime = 100L
             )
@@ -148,7 +141,6 @@ class NoteDaoTest {
         val newNoteId1 = noteDao.addOrUpdateNote(
             NoteModel(
                 id = testNoteId,
-                title = "test title",
                 content = "test content",
                 lastEditTime = 100L
             )

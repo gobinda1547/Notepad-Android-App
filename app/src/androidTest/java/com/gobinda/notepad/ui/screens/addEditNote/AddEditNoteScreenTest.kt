@@ -42,7 +42,7 @@ class AddEditNoteScreenTest {
     fun testing_WhenScreenLaunched_AllElementsShouldBeFound() {
         val doneIconBtn = hasContentDescription("Done") and hasClickAction()
         val navBackIconBtn = hasContentDescription("Back") and hasClickAction()
-        val titleText = hasText("Add") and hasNoClickAction()
+        val titleText = hasText("New") and hasNoClickAction()
 
         composableRule.onNode(doneIconBtn).assertExists()
         composableRule.onNode(navBackIconBtn).assertExists()
