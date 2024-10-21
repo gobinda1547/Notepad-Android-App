@@ -2,7 +2,7 @@ package com.gobinda.notepad.ui.screens.addEditNote
 
 import android.widget.Toast
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -92,7 +92,10 @@ fun AddEditNoteScreen(
                             navController.navigateUp()
                         }
                     ) {
-                        Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
                     }
                 }
             )
