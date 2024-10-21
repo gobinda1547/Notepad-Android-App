@@ -9,11 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.gobinda.notepad.ui.screens.addEditNote.AddEditNoteScreen
 import com.gobinda.notepad.ui.screens.noteList.NoteListScreen
 import com.gobinda.notepad.ui.screens.showNote.ShowNoteScreen
@@ -29,10 +27,11 @@ fun AppNavigation() {
     NavHost(
         modifier = Modifier.background(MaterialTheme.colorScheme.surface),
         navController = navController,
-        startDestination = AppScreen.NoteListScreen.router
+        startDestination = AppScreen.NoteListScreen.route
     ) {
         composable(
-            route = AppScreen.NoteListScreen.router,
+            route = AppScreen.NoteListScreen.route,
+            arguments = AppScreen.NoteListScreen.navArguments,
             exitTransition = {
                 slideOutHorizontally(
                     targetOffsetX = { -animationOffset },
@@ -50,8 +49,8 @@ fun AppNavigation() {
         }
 
         composable(
-            route = AppScreen.AddOrEditNoteScreen.router + "?noteId={noteId}",
-            arguments = listOf(navArgument("noteId") { type = NavType.LongType }),
+            route = AppScreen.AddOrEditNoteScreen.route,
+            arguments = AppScreen.AddOrEditNoteScreen.navArguments,
             enterTransition = {
                 slideInHorizontally(
                     initialOffsetX = { animationOffset },
@@ -67,8 +66,8 @@ fun AppNavigation() {
         ) { AddEditNoteScreen(navController = navController) }
 
         composable(
-            route = AppScreen.ShowNoteScreen.router + "?noteId={noteId}",
-            arguments = listOf(navArgument("noteId") { type = NavType.LongType }),
+            route = AppScreen.ShowNoteScreen.route,
+            arguments = AppScreen.ShowNoteScreen.navArguments,
             enterTransition = {
                 slideInHorizontally(
                     initialOffsetX = { animationOffset },

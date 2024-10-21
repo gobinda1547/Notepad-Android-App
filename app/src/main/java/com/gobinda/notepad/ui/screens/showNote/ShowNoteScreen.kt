@@ -84,10 +84,10 @@ fun ShowNoteScreen(
     }
 
     fun openAddOrEditScreen(noteId: Long?) {
-        noteId?.let {
-            val route = AppScreen.AddOrEditNoteScreen.router
-            val param = "noteId=$it"
-            navController.navigate("$route?$param")
+        noteId?.let { nId ->
+            navController.navigate(
+                AppScreen.AddOrEditNoteScreen.createRoute(nId)
+            )
         }
     }
 

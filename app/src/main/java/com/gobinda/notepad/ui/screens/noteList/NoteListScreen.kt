@@ -33,15 +33,15 @@ fun NoteListScreen(
     val noteItems: State<List<NoteAsListItem>?> = viewModel.noteList.collectAsState()
 
     fun openAddOrEditScreen(noteId: Long) {
-        val route = AppScreen.AddOrEditNoteScreen.router
-        val param = "noteId=$noteId"
-        navController.navigate("$route?$param")
+        navController.navigate(
+            AppScreen.AddOrEditNoteScreen.createRoute(noteId)
+        )
     }
 
     fun openSingleNoteScreen(noteId: Long) {
-        val route = AppScreen.ShowNoteScreen.router
-        val param = "noteId=$noteId"
-        navController.navigate("$route?$param")
+        navController.navigate(
+            AppScreen.ShowNoteScreen.createRoute(noteId)
+        )
     }
 
     Scaffold(
