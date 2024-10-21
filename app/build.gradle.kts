@@ -91,4 +91,13 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
+
+    androidTestImplementation(libs.androidx.navigation.testing)
+    androidTestImplementation(libs.google.dagger.hilt.android.testing)
+    kaptAndroidTest(libs.google.dagger.hilt.android.compiler)
+
+    androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 }

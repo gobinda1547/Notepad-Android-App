@@ -39,7 +39,7 @@ class NoteListScreenTest {
     @Test
     fun testingNoteListScreen_WhenLaunched_AllElementsShouldBeFound() {
         val addIconBtn = hasContentDescription("Add") and hasClickAction()
-        val titleText = hasText("Notepad") and hasNoClickAction()
+        val titleText = hasText("Notes") and hasNoClickAction()
 
         composableRule.onNode(titleText).assertExists()
         composableRule.onNode(addIconBtn).assertExists()
