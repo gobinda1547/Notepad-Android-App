@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -133,11 +134,13 @@ fun ShowNoteScreen(
                             .fillMaxWidth()
                             .padding(16.dp),
                         text = it.content,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        fontFamily = FontFamily.SansSerif,
-                        fontSize = 20.sp,
-                        fontStyle = FontStyle.Normal,
-                        fontWeight = FontWeight.Light,
+                        style = TextStyle(
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontFamily = FontFamily.SansSerif,
+                            fontSize = 20.sp,
+                            fontStyle = FontStyle.Normal,
+                            fontWeight = FontWeight.Light
+                        )
                     )
                 }
             }
