@@ -50,7 +50,6 @@ class ShowNoteViewModelTest {
     fun testingByInitiatingRelativeNote() = runTest {
         val testNote = Note(
             id = 1L,
-            title = "note title",
             content = "note content",
             lastEditTime = 100L
         )
@@ -67,7 +66,6 @@ class ShowNoteViewModelTest {
     fun testingByTryingToDeleteNoteFailedCase() = runTest {
         val testNote = Note(
             id = 1L,
-            title = "note title",
             content = "note content",
             lastEditTime = 100L
         )
@@ -97,7 +95,6 @@ class ShowNoteViewModelTest {
     fun testingByTryingToDeleteNoteSuccessfulCase() = runTest {
         val testNote = Note(
             id = 1L,
-            title = "note title",
             content = "note content",
             lastEditTime = 100L
         )

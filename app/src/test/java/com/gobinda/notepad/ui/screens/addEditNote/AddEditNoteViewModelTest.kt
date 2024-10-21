@@ -53,7 +53,6 @@ class AddEditNoteViewModelTest {
         testDispatcher.scheduler.advanceUntilIdle()
 
         TestCase.assertEquals(false, viewModel.isEditingNote.first())
-        TestCase.assertEquals("", viewModel.titleText.first())
         TestCase.assertEquals("", viewModel.contentText.first())
     }
 
@@ -61,7 +60,6 @@ class AddEditNoteViewModelTest {
     fun instantiationTestWhenEditingPreviousNote() = runTest {
         val testNote = Note(
             id = 5L,
-            title = "title",
             content = "content",
             lastEditTime = 100L
         )
@@ -72,22 +70,7 @@ class AddEditNoteViewModelTest {
         testDispatcher.scheduler.advanceUntilIdle()
 
         TestCase.assertEquals(true, viewModel.isEditingNote.first())
-        TestCase.assertEquals("title", viewModel.titleText.first())
         TestCase.assertEquals("content", viewModel.contentText.first())
-    }
-
-    @Test
-    fun testingByChangingTitleText() = runTest {
-        every { savedStateHandle.get<Long>("noteId") } returns -1L
-        viewModel = AddEditNoteViewModel(getSingleNoteUseCase, addNoteUseCase, savedStateHandle)
-        testDispatcher.scheduler.advanceUntilIdle()
-
-        viewModel.handleEvent(AddEditUiEvent.UpdateTitle("nice title"))
-        testDispatcher.scheduler.advanceUntilIdle()
-
-        TestCase.assertEquals(false, viewModel.isEditingNote.first())
-        TestCase.assertEquals("nice title", viewModel.titleText.first())
-        TestCase.assertEquals("", viewModel.contentText.first())
     }
 
     @Test
@@ -100,7 +83,6 @@ class AddEditNoteViewModelTest {
         testDispatcher.scheduler.advanceUntilIdle()
 
         TestCase.assertEquals(false, viewModel.isEditingNote.first())
-        TestCase.assertEquals("", viewModel.titleText.first())
         TestCase.assertEquals("nice content", viewModel.contentText.first())
     }
 
@@ -143,9 +125,6 @@ class AddEditNoteViewModelTest {
         }
 
         viewModel = AddEditNoteViewModel(getSingleNoteUseCase, addNoteUseCase, savedStateHandle)
-        testDispatcher.scheduler.advanceUntilIdle()
-
-        viewModel.handleEvent(AddEditUiEvent.UpdateTitle("nice title"))
         testDispatcher.scheduler.advanceUntilIdle()
 
         viewModel.handleEvent(AddEditUiEvent.UpdateContent("nice content"))

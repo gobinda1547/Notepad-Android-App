@@ -24,33 +24,10 @@ class AddNoteUseCaseTest {
     }
 
     @Test
-    fun testing_WhenNoteTitleIsEmpty() = runBlocking {
-        val testNoteId = 5L
-        val testNote = Note(
-            id = testNoteId,
-            title = "",
-            content = "test content",
-            lastEditTime = System.currentTimeMillis()
-        )
-
-        val addNoteExceptionFound = try {
-            useCase.execute(testNote)
-            false
-        } catch (e: AddNoteException) {
-            TestCase.assertEquals(e.reason, R.string.error_empty_title)
-            true
-        } catch (e: Exception) {
-            false
-        }
-        TestCase.assertEquals(true, addNoteExceptionFound)
-    }
-
-    @Test
     fun testing_WhenNoteContentIsEmpty() = runBlocking {
         val testNoteId = 5L
         val testNote = Note(
             id = testNoteId,
-            title = "test title",
             content = "",
             lastEditTime = System.currentTimeMillis()
         )
@@ -74,7 +51,6 @@ class AddNoteUseCaseTest {
         val testNoteId = 5L
         val testNote = Note(
             id = testNoteId,
-            title = "test title",
             content = "test content",
             lastEditTime = System.currentTimeMillis()
         )
@@ -99,7 +75,6 @@ class AddNoteUseCaseTest {
         val testNoteId = 5L
         val testNote = Note(
             id = testNoteId,
-            title = "test title",
             content = "test content",
             lastEditTime = System.currentTimeMillis()
         )
