@@ -1,14 +1,14 @@
 package com.gobinda.notepad.ui.navigation
 
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,13 +18,13 @@ import com.gobinda.notepad.ui.screens.addEditNote.AddEditNoteScreen
 import com.gobinda.notepad.ui.screens.noteList.NoteListScreen
 import com.gobinda.notepad.ui.screens.showNote.ShowNoteScreen
 
-private const val ANIMATION_OFFSET = 500
-private const val ANIMATION_DURATION = 500
+private const val ANIMATION_DURATION = 300
 
 @Composable
 fun AppNavigation() {
 
     val navController = rememberNavController()
+    val animationOffset = calculateScreenWidthInPixel()
 
     NavHost(
         modifier = Modifier.background(MaterialTheme.colorScheme.surface),
@@ -35,15 +35,15 @@ fun AppNavigation() {
             route = AppScreen.NoteListScreen.router,
             exitTransition = {
                 slideOutHorizontally(
-                    targetOffsetX = { -ANIMATION_OFFSET },
+                    targetOffsetX = { -animationOffset },
                     animationSpec = tween(durationMillis = ANIMATION_DURATION)
-                ) + fadeOut(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+                )
             },
             popEnterTransition = {
                 slideInHorizontally(
-                    initialOffsetX = { -ANIMATION_OFFSET },
+                    initialOffsetX = { -animationOffset },
                     animationSpec = tween(durationMillis = ANIMATION_DURATION)
-                ) + fadeIn(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+                )
             }
         ) {
             NoteListScreen(navController = navController)
@@ -54,15 +54,15 @@ fun AppNavigation() {
             arguments = listOf(navArgument("noteId") { type = NavType.LongType }),
             enterTransition = {
                 slideInHorizontally(
-                    initialOffsetX = { ANIMATION_OFFSET },
+                    initialOffsetX = { animationOffset },
                     animationSpec = tween(durationMillis = ANIMATION_DURATION)
-                ) + fadeIn(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+                )
             },
             popExitTransition = {
                 slideOutHorizontally(
-                    targetOffsetX = { ANIMATION_OFFSET },
+                    targetOffsetX = { animationOffset },
                     animationSpec = tween(durationMillis = ANIMATION_DURATION)
-                ) + fadeOut(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+                )
             }
         ) { AddEditNoteScreen(navController = navController) }
 
@@ -71,28 +71,35 @@ fun AppNavigation() {
             arguments = listOf(navArgument("noteId") { type = NavType.LongType }),
             enterTransition = {
                 slideInHorizontally(
-                    initialOffsetX = { ANIMATION_OFFSET },
+                    initialOffsetX = { animationOffset },
                     animationSpec = tween(durationMillis = ANIMATION_DURATION)
-                ) + fadeIn(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+                )
             },
             exitTransition = {
                 slideOutHorizontally(
-                    targetOffsetX = { -ANIMATION_OFFSET },
+                    targetOffsetX = { -animationOffset },
                     animationSpec = tween(durationMillis = ANIMATION_DURATION)
-                ) + fadeOut(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+                )
             },
             popEnterTransition = {
                 slideInHorizontally(
-                    initialOffsetX = { -ANIMATION_OFFSET },
+                    initialOffsetX = { -animationOffset },
                     animationSpec = tween(durationMillis = ANIMATION_DURATION)
-                ) + fadeIn(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+                )
             },
             popExitTransition = {
                 slideOutHorizontally(
-                    targetOffsetX = { ANIMATION_OFFSET },
+                    targetOffsetX = { animationOffset },
                     animationSpec = tween(durationMillis = ANIMATION_DURATION)
-                ) + fadeOut(animationSpec = tween(durationMillis = ANIMATION_DURATION))
+                )
             }
         ) { ShowNoteScreen(navController = navController) }
     }
+}
+
+@Composable
+private fun calculateScreenWidthInPixel(): Int {
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    val density = LocalDensity.current.density
+    return (screenWidthDp * density).toInt()
 }
