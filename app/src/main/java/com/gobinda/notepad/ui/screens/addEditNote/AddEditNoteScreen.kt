@@ -17,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -35,6 +36,7 @@ fun AddEditNoteScreen(
     val context = LocalContext.current
     val contentTextState = viewModel.contentText.collectAsState()
     val isEditingNoteState = viewModel.isEditingNote.collectAsState()
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     LaunchedEffect(Unit) {
         viewModel.toastMessage.collect {
@@ -48,6 +50,7 @@ fun AddEditNoteScreen(
     LaunchedEffect(Unit) {
         viewModel.shouldCloseScreen.collect { shouldClose ->
             if (shouldClose == true) {
+                keyboardController?.hide()
                 navController.navigateUp()
             }
         }
@@ -84,7 +87,10 @@ fun AddEditNoteScreen(
                 navigationIcon = {
                     IconButton(
                         modifier = Modifier.testTag(TestTag.AddEditScreenBackBtn),
-                        onClick = { navController.navigateUp() }
+                        onClick = {
+                            keyboardController?.hide()
+                            navController.navigateUp()
+                        }
                     ) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
