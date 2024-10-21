@@ -23,20 +23,10 @@ class AddEditNoteViewModel @Inject constructor(
     private val savedState: SavedStateHandle
 ) : ViewModel() {
 
-    private val _titleText = MutableStateFlow("")
-
-    /**
-     * This attribute will be used to track the input for titleText. User
-     * may enter some character and then there could be screen rotation,
-     * so we can't let the data vanished.
-     */
-    val titleText: StateFlow<String> = _titleText
-
     private val _contentText = MutableStateFlow("")
 
     /**
-     * This attribute will be used to track content text same as previous
-     * attribute [titleText]
+     * This attribute will be used to track the content
      */
     val contentText: StateFlow<String> = _contentText
 
@@ -83,7 +73,6 @@ class AddEditNoteViewModel @Inject constructor(
             _isEditingNote.emit(relatedNoteId != -1L)
             if (relatedNoteId == -1L) return@launch // -1 for add note screen
             getSingleNoteUseCase.execute(relatedNoteId).firstOrNull()?.let {
-                _titleText.emit(it.title)
                 _contentText.emit(it.content)
             }
         }
@@ -91,10 +80,6 @@ class AddEditNoteViewModel @Inject constructor(
 
     fun handleEvent(event: AddEditUiEvent) = viewModelScope.launch {
         when (event) {
-            is AddEditUiEvent.UpdateTitle -> {
-                _titleText.tryEmit(event.title)
-            }
-
             is AddEditUiEvent.UpdateContent -> {
                 _contentText.tryEmit(event.content)
             }
@@ -102,7 +87,6 @@ class AddEditNoteViewModel @Inject constructor(
             AddEditUiEvent.SaveNote -> {
                 try {
                     val currentNote = Note(
-                        title = titleText.value,
                         content = contentText.value,
                         lastEditTime = System.currentTimeMillis(),
                         id = if (relatedNoteId == -1L) 0L else relatedNoteId

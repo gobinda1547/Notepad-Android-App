@@ -9,7 +9,7 @@ import com.gobinda.notepad.domain.model.NoteAsListItem
  * This function basically converted [Note] object to [NoteModel] object.
  */
 fun Note.toNoteModel(): NoteModel {
-    return NoteModel(id, title, content, lastEditTime)
+    return NoteModel(id, content, lastEditTime)
 }
 
 /**
@@ -17,7 +17,7 @@ fun Note.toNoteModel(): NoteModel {
  * This function basically converted [NoteModel] object to [Note] object.
  */
 fun NoteModel.toNote(): Note {
-    return Note(id, title, content, lastEditTime)
+    return Note(id, content, lastEditTime)
 }
 
 /**
@@ -27,7 +27,7 @@ fun NoteModel.toNote(): Note {
  */
 fun NoteModel.toNoteAsListItem(): NoteAsListItem {
     return NoteAsListItem(
-        title = title.split("\n").firstOrNull { it.isNotEmpty() } ?: "",
+        title = content.split("\n").firstOrNull { it.isNotEmpty() } ?: "",
         id = id
     )
 }

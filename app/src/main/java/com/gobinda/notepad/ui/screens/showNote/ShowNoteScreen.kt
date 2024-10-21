@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -33,9 +34,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
+import com.gobinda.notepad.R
 import com.gobinda.notepad.ui.navigation.AppScreen
-import com.gobinda.notepad.ui.screens.common.MenuDivider
+import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
 import com.gobinda.notepad.ui.screens.common.TestTag
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -98,7 +99,7 @@ fun ShowNoteScreen(
                     titleContentColor = MaterialTheme.colorScheme.onBackground,
                     actionIconContentColor = MaterialTheme.colorScheme.onBackground
                 ),
-                title = { },
+                title = { Text(text = stringResource(R.string.text_read)) },
                 actions = {
                     IconButton(
                         modifier = Modifier.testTag(TestTag.ShowNoteScreenDeleteIconBtn),
@@ -127,18 +128,6 @@ fun ShowNoteScreen(
         ContentHolderForTitledScreen(paddingValues = innerPadding) {
             currentNote.value?.let {
                 Column(modifier = Modifier.verticalScroll(verticalScrollState)) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        text = it.title,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        fontFamily = FontFamily.SansSerif,
-                        fontSize = 24.sp,
-                        fontStyle = FontStyle.Normal,
-                        fontWeight = FontWeight.Light,
-                    )
-                    MenuDivider(paddingStart = 16, paddingEnd = 16)
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()

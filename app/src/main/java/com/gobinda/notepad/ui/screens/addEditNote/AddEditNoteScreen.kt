@@ -1,9 +1,6 @@
 package com.gobinda.notepad.ui.screens.addEditNote
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Done
@@ -21,10 +18,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.gobinda.notepad.R
 import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
-import com.gobinda.notepad.ui.screens.common.MenuDivider
 import com.gobinda.notepad.ui.screens.common.TestTag
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,10 +33,8 @@ fun AddEditNoteScreen(
 ) {
 
     val context = LocalContext.current
-    val titleTextState = viewModel.titleText.collectAsState()
     val contentTextState = viewModel.contentText.collectAsState()
     val isEditingNoteState = viewModel.isEditingNote.collectAsState()
-    val verticalScrollState = rememberScrollState()
 
     LaunchedEffect(Unit) {
         viewModel.toastMessage.collect {
@@ -70,7 +66,10 @@ fun AddEditNoteScreen(
                     isEditingNoteState.value?.let { isEdit ->
                         Text(
                             modifier = Modifier.testTag(TestTag.AddEditScreeTitleTextView),
-                            text = if (isEdit) "Edit" else "Add"
+                            text = when (isEdit) {
+                                true -> stringResource(R.string.text_edit)
+                                else -> stringResource(R.string.text_new)
+                            }
                         )
                     }
                 },
@@ -94,14 +93,8 @@ fun AddEditNoteScreen(
         }
     ) { innerPadding ->
         ContentHolderForTitledScreen(paddingValues = innerPadding) {
-            Column(modifier = Modifier.verticalScroll(verticalScrollState)) {
-                TitleInputView(text = titleTextState.value) {
-                    viewModel.handleEvent(AddEditUiEvent.UpdateTitle(it))
-                }
-                MenuDivider(paddingStart = 16, paddingEnd = 16)
-                ContentInputView(text = contentTextState.value) {
-                    viewModel.handleEvent(AddEditUiEvent.UpdateContent(it))
-                }
+            ContentInputView(text = contentTextState.value) {
+                viewModel.handleEvent(AddEditUiEvent.UpdateContent(it))
             }
         }
     }

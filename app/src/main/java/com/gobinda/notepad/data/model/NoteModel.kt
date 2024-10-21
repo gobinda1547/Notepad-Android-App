@@ -21,14 +21,6 @@ data class NoteModel(
     val id: Long = 0,
 
     /**
-     * This attribute will hold the title of the [NoteModel]. In data layer
-     * we are not putting any specific length conditions for the title. User
-     * can have 2 [NoteModel] with same [title].
-     */
-    @ColumnInfo(name = "title")
-    val title: String,
-
-    /**
      * This attribute will hold the content or body part of the [NoteModel].
      * Here also - no length limitation.
      */

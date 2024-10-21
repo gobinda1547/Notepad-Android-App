@@ -15,8 +15,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.gobinda.notepad.R
 import com.gobinda.notepad.domain.model.NoteAsListItem
 import com.gobinda.notepad.ui.screens.common.ContentHolderForTitledScreen
 import com.gobinda.notepad.ui.navigation.AppScreen
@@ -51,7 +53,7 @@ fun NoteListScreen(
                     titleContentColor = MaterialTheme.colorScheme.onBackground,
                     actionIconContentColor = MaterialTheme.colorScheme.onBackground
                 ),
-                title = { Text(text = "Notepad") },
+                title = { Text(text = stringResource(R.string.text_notes)) },
                 actions = {
                     IconButton(
                         modifier = Modifier.testTag(TestTag.NoteListScreenAddIconBtn),
