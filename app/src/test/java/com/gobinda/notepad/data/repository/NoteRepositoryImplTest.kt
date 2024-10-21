@@ -37,7 +37,6 @@ class NoteRepositoryImplTest {
         val currentTime = System.currentTimeMillis()
         val testNoteObject = NoteModel(
             id = 10,
-            title = "This is a test title",
             content = "This is a test content",
             lastEditTime = currentTime
         )
@@ -54,7 +53,6 @@ class NoteRepositoryImplTest {
         val currentTime = System.currentTimeMillis()
         val testNoteObject = NoteModel(
             id = 10,
-            title = "This is a test title",
             content = "This is a test content",
             lastEditTime = currentTime
         )
@@ -73,7 +71,6 @@ class NoteRepositoryImplTest {
         val result = repository.addOrUpdateNote(
             NoteModel(
                 id = 10,
-                title = "This is a test title",
                 content = "This is a test content",
                 lastEditTime = System.currentTimeMillis()
             )

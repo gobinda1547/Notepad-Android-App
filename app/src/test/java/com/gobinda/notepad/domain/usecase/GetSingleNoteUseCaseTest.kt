@@ -36,7 +36,6 @@ class GetSingleNoteUseCaseTest {
         val testNoteId = 5L
         val testNote = NoteModel(
             id = testNoteId,
-            title = "test title",
             content = "test content",
             lastEditTime = 100L
         )
@@ -44,7 +43,6 @@ class GetSingleNoteUseCaseTest {
 
         val singleNote = useCase.execute(testNoteId).first()
         TestCase.assertEquals(testNote.id, singleNote?.id)
-        TestCase.assertEquals(testNote.title, singleNote?.title)
         TestCase.assertEquals(testNote.content, singleNote?.content)
         TestCase.assertEquals(testNote.lastEditTime, singleNote?.lastEditTime)
     }

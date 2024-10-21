@@ -34,12 +34,10 @@ class GetNotesUseCaseTest {
         val testNoteModelList = listOf(
             NoteModel(
                 id = 1L,
-                title = "First note title",
                 content = "First note content",
                 lastEditTime = 101L
             ), NoteModel(
                 id = 2L,
-                title = "Second note title",
                 content = "Second note content",
                 lastEditTime = 102L
             )
@@ -51,8 +49,8 @@ class GetNotesUseCaseTest {
         // the list is sorted according to last edit time so the note whose id
         // is 2 will be the first item since it's edited last
         TestCase.assertEquals(2L, noteList[0].id)
-        TestCase.assertEquals("Second note title", noteList[0].title)
+        TestCase.assertEquals("Second note content", noteList[0].title)
         TestCase.assertEquals(1L, noteList[1].id)
-        TestCase.assertEquals("First note title", noteList[1].title)
+        TestCase.assertEquals("First note content", noteList[1].title)
     }
 }
